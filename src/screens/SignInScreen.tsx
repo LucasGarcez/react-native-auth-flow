@@ -1,15 +1,19 @@
 import React from 'react';
 import {Button, Text, View} from 'react-native';
 
+import {styles} from './styles';
+import {useAuth} from '../contexts/Auth';
+
 export const SignInScreen = () => {
-  const logOut = () => {
-    //get auth here
+  const auth = useAuth();
+  const signIn = () => {
+    auth.signIn();
   };
 
   return (
-    <View>
-      <Text>HOME SCREEN</Text>
-      <Button title="log out" onPress={logOut} />
+    <View style={styles.container}>
+      <Text>Sign In Screen</Text>
+      <Button title="Sign In" onPress={signIn} />
     </View>
   );
 };

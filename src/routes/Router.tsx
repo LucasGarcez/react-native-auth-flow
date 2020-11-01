@@ -4,10 +4,11 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {AppStack} from './AppStack';
 import {AuthStack} from './AuthStack';
+import {useAuth} from '../contexts/Auth';
 //import {useAuth} from 'src/hooks/auth';
 
 export const Router = () => {
-  const {token, loading} = useAuth();
+  const {user, loading} = useAuth();
 
   if (loading) {
     return (
@@ -22,7 +23,7 @@ export const Router = () => {
   }
   return (
     <NavigationContainer>
-      {token ? <AppStack /> : <AuthStack />}
+      {user ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
