@@ -18,13 +18,11 @@ const AuthProvider: React.FC = ({children}) => {
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
-      const [token, user] = await AsyncStorage.multiGet([
-        '@RNAuth:token',
-        '@RNAuth:user',
-      ]);
+      const token = await AsyncStorage.getItem('@RNAuth:token');
+      const user = await AsyncStorage.getItem('@RNAuth:user');
 
-      if (token[1] && user[1]) {
-        setData({token: token[1], user: JSON.parse(user[1])});
+      if (token && user) {
+        setData({token: token, user: JSON.parse(user)});
       }
 
       setLoading(false);
