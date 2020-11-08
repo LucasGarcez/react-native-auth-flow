@@ -3,12 +3,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import {AuthData, User, authService} from '../services/authService';
 
-interface AuthContextData {
+type AuthContextData = {
   user?: User;
   loading: boolean;
   signIn(): Promise<void>;
   signOut(): void;
-}
+};
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
