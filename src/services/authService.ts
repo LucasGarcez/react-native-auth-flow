@@ -15,7 +15,7 @@ const signIn = (email: string, _password: string): Promise<AuthData> => {
         email: email,
         name: 'Lucas Garcez',
       });
-    }, 2000);
+    }, 1000);
   });
 };
 
