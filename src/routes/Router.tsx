@@ -8,7 +8,7 @@ import {useAuth} from '../contexts/Auth';
 //import {useAuth} from 'src/hooks/auth';
 
 export const Router = () => {
-  const {user, loading} = useAuth();
+  const {authData, loading} = useAuth();
 
   if (loading) {
     return (
@@ -23,7 +23,7 @@ export const Router = () => {
   }
   return (
     <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
+      {authData?.token ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

@@ -1,10 +1,10 @@
 import React, {createContext, useState, useContext, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {AuthData, User, authService} from '../services/authService';
+import {AuthData, authService} from '../services/authService';
 
 type AuthContextData = {
-  user?: User;
+  authData?: AuthData;
   loading: boolean;
   signIn(): Promise<void>;
   signOut(): void;
@@ -13,42 +13,43 @@ type AuthContextData = {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({children}) => {
-  const [data, setData] = useState<AuthData | null>(null);
+  const [authData, setAuthData] = useState<AuthData>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadStorageData(): Promise<void> {
-      const token = await AsyncStorage.getItem('@RNAuth:token');
-      const user = await AsyncStorage.getItem('@RNAuth:user');
-
-      if (token && user) {
-        setData({token: token, user: JSON.parse(user)});
-      }
-
-      setLoading(false);
-    }
-
     loadStorageData();
   }, []);
 
+  async function loadStorageData(): Promise<void> {
+    try {
+      const authDataSerialized = await AsyncStorage.getItem('@AuthData');
+      if (authDataSerialized) {
+        const _authData: AuthData = JSON.parse(authDataSerialized);
+        setAuthData(_authData);
+      }
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const signIn = async () => {
-    const authData = await authService.signIn();
+    const _authData = await authService.signIn(
+      'lucasgarcez@email.com',
+      '123456',
+    );
 
-    await AsyncStorage.multiSet([
-      ['@RNAuth:token', authData.token],
-      ['@RNAuth:user', JSON.stringify(authData.user)],
-    ]);
-
-    setData(authData);
+    AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
+    setAuthData(_authData);
   };
 
   const signOut = async () => {
-    await AsyncStorage.multiRemove(['@RNAuth:user', '@RNAuth:token']);
-    setData(null);
+    await AsyncStorage.removeItem('@AuthData');
+    setAuthData(undefined);
   };
 
   return (
-    <AuthContext.Provider value={{user: data?.user, loading, signIn, signOut}}>
+    <AuthContext.Provider value={{authData, loading, signIn, signOut}}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,20 +1,19 @@
-export type User = {
+export type AuthData = {
+  token: string;
   email: string;
   name: string;
 };
-export type AuthData = {
-  token: string;
-  user: User;
-};
-const signIn = (): Promise<AuthData> => {
+const signIn = (email: string, _password: string): Promise<AuthData> => {
+  // this is a mock of a API, in a real app
+  // will be need connect to some real API,
+  // send email and password, and if credential is corret
+  //the api will resolve with some token and another datas like the below
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        token: 'asdksjjtrkvcjru329dknsfksanfkanfasd',
-        user: {
-          email: 'lucasgarcez@email.com',
-          name: 'Lucas Garcez',
-        },
+        token: JWTTokenMock,
+        email: email,
+        name: 'Lucas Garcez',
       });
     }, 2000);
   });
@@ -23,3 +22,6 @@ const signIn = (): Promise<AuthData> => {
 export const authService = {
   signIn,
 };
+
+const JWTTokenMock =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikx1Y2FzIEdhcmNleiIsImlhdCI6MTUxNjIzOTAyMn0.oK5FZPULfF-nfZmiumDGiufxf10Fe2KiGe9G5Njoa64';
