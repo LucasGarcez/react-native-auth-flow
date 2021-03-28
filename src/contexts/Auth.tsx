@@ -16,8 +16,9 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({children}) => {
   const [authData, setAuthData] = useState<AuthData>();
-  //the AuthContext init with loading equals true
-  //and stay like this, ultil the data be load from Async Storage
+
+  //the AuthContext start with loading equals true
+  //and stay like this, until the data be load from Async Storage
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,6 +70,8 @@ const AuthProvider: React.FC = ({children}) => {
   };
 
   return (
+    //This component will be used to encapsulate the whole App,
+    //so all components will have access to the Context
     <AuthContext.Provider value={{authData, loading, signIn, signOut}}>
       {children}
     </AuthContext.Provider>
