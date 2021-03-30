@@ -51,7 +51,8 @@ const AuthProvider: React.FC = ({children}) => {
       '123456',
     );
 
-    //that the user is authenticated and can access the content.
+    //Set the data in the context, so the App can be notified
+    //and send the user to the AuthStack
     setAuthData(_authData);
 
     //Persist the data in the Async Storage
