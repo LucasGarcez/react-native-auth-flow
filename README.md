@@ -14,7 +14,7 @@ https://lucasgarcez.medium.com/react-native-authentication-flow-the-simplest-and
 
 ## How can I run this App?
 
-### Clone de project:
+### Clone project:
 
 `git clone https://github.com/LucasGarcez/react-native-auth-flow.git`
 
