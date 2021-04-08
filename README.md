@@ -30,6 +30,6 @@ https://lucasgarcez.medium.com/react-native-authentication-flow-the-simplest-and
 
 `yarn ios`
 
-### Run Andrpod
+### Run Android
 
 `yarn android`
