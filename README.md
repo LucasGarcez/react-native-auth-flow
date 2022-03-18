@@ -1,4 +1,4 @@
-# The Simples and Most Efficient Way to create a React Native Authentication Flow
+# The Simplest and Most Efficient Way to create a React Native Authentication Flow
 
 ![Article Cover - Photo by Chris Panas on Unsplash ](/images/article-cover.jpg)
 
